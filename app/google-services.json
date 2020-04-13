@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1098851729514",
+    "firebase_url": "https://ophthalmic-7a601.firebaseio.com",
+    "project_id": "ophthalmic-7a601",
+    "storage_bucket": "ophthalmic-7a601.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098851729514:android:5f93d75778b9372ec2ca13",
+        "android_client_info": {
+          "package_name": "app.grand.ophthalmicadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098851729514-s4812j0codop2j8sb4u97e3s52pmqdln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgcBTrK7mxA2igyvAmjW-EZBwxu4b1XKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098851729514-s4812j0codop2j8sb4u97e3s52pmqdln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098851729514:android:7550db79fc563c8cc2ca13",
+        "android_client_info": {
+          "package_name": "app.m.ophthalmicuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098851729514-s4812j0codop2j8sb4u97e3s52pmqdln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgcBTrK7mxA2igyvAmjW-EZBwxu4b1XKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098851729514-s4812j0codop2j8sb4u97e3s52pmqdln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="reserveItemViewModels"
+            type="app.grand.ophthalmicadmin.admin.adminReservations.itemViewModels.AdminReservationsItemViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp2h"
+        android:onClick="@{()-> reserveItemViewModels.toDoctorReservations()}"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp4h"
+        app:cardElevation="@dimen/dp4h">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/circleImageView"
+                android:layout_width="@dimen/dp50w"
+                android:layout_height="@dimen/dp50h"
+                android:layout_margin="@dimen/dp4h"
+                android:background="@drawable/corner_round"
+                android:gravity="center"
+                android:text="@{reserveItemViewModels.reservationsResponse.day}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_doctor_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp4w"
+                android:layout_marginTop="@dimen/dp8h"
+                android:layout_marginEnd="@dimen/dp4w"
+                android:text="@{`Doctor Name :`+reserveItemViewModels.reservationsResponse.doctor.user_name}"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_doctor_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp4w"
+                android:layout_marginEnd="@dimen/dp4w"
+                android:text="@{`Patient Name :`+reserveItemViewModels.reservationsResponse.patient.user_name}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black_90"
+                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                app:layout_constraintTop_toBottomOf="@+id/tv_doctor_name" />
+
+            <TextView
+                android:id="@+id/tv_doctor_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp4w"
+                android:background="@drawable/corner_view_primary_dark"
+                android:padding="@dimen/dp4h"
+                android:text="@{reserveItemViewModels.reservationsResponse.date}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_doctor_phone" />
+
+            <TextView
+                android:id="@+id/tv_doctor_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp4w"
+                android:background="@drawable/corner_view_primary_border"
+                android:padding="@dimen/dp4h"
+                android:text="@{reserveItemViewModels.reservationsResponse.status}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/black_90"
+                app:layout_constraintEnd_toStartOf="@+id/tv_doctor_date"
+                app:layout_constraintTop_toBottomOf="@+id/tv_doctor_phone" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/br_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tv_doctor_status,tv_doctor_date" />
+
+            <TextView
+                android:id="@+id/tv_doctor_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp4w"
+                android:background="@drawable/corner_view_yellow_dark"
+                android:onClick="@{()-> reserveItemViewModels.accept()}"
+                android:padding="@dimen/dp4h"
+                android:text="@string/accept"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/white"
+                android:visibility="@{reserveItemViewModels.status== View.GONE?View.GONE:View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/br_item" />
+
+            <TextView
+                android:id="@+id/tv_doctor_decline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp4w"
+                android:background="@drawable/corner_view_yello_border"
+                android:padding="@dimen/dp4h"
+                android:text="@string/decline"
+                android:onClick="@{()-> reserveItemViewModels.decline()}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/black_90"
+                android:visibility="@{reserveItemViewModels.status== View.GONE?View.GONE:View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/br_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
