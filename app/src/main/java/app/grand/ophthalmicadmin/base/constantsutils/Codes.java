@@ -50,15 +50,15 @@ public class Codes {
 
     public static int ADMIN_DOCTORS_PROFILE = 230;
 
-    public static int SUPPORT = 231;
+    public static int DEPARTMENT_DETAILS = 231;
 
-    public static int ABOUT = 232;
-    public static int SHOP_RATE = 233;
-    public static int ADD_RATE = 234;
+    public static int ADD_NEW_DEPARTMENT = 232;
+    public static int ADD_SPECIALIST = 233;
+    public static int UPDATE_ADMIN_AUTH = 234;
     public static int NOTIFICATIONS = 235;
-    public static int MINUS = 236;
-    public static int PLUS = 237;
-    public static int DELETE_CART_ITEM = 238;
+    public static int UPDATE_ADMIN_DATA = 236;
+    public static int ADMIN_PROFILE = 237;
+    public static int Specialist_UPDTAE_IMAGE = 238;
     public static int DIALOG_SHOW = 239;
     public static int CHECK_OUT = 240;
     public static int USER_FOLLOWS = 241;

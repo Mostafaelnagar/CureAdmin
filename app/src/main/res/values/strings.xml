@@ -71,5 +71,13 @@
     <string name="Friday">Friday</string>
     <string name="Monday">Monday</string>
     <string name="workingDaysDesc">Please choose doctor working days</string>
+    <string name="add_new_department">New department</string>
+    <string name="desc">Description</string>
+    <string name="edit_department">Edit department</string>
+    <string name="addSpecialist">Add specialist</string>
+    <string name="labName">Lab name</string>
+    <string name="labNumber">Lab number</string>
+    <string name="specialistUpdateStatus">Reservation details</string>
+    <string name="updateImageText">Please choose X-Ray image</string>
 
 </resources>

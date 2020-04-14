@@ -278,6 +278,7 @@
                 android:layout_margin="@dimen/dp4h"
                 app:cardCornerRadius="@dimen/dp8h"
                 app:cardElevation="@dimen/dp4h"
+                android:onClick="@{()->homeViewModel.logout()}"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toStartOf="@+id/cardView4"
                 app:layout_constraintHorizontal_bias="0.5"

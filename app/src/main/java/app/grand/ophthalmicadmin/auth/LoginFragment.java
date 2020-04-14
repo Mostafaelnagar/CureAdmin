@@ -41,8 +41,7 @@ public class LoginFragment extends BaseFragment {
         checkConnection();
         loginBinding.setLoginViewModel(authViewModels);
         liveDataListeners();
-        Validate.isInputValid(loginBinding.inputPassword, loginBinding.password, 1, getActivity());
-        Validate.isInputValid(loginBinding.inputUserName, loginBinding.userName, 0, getActivity());
+
         return loginBinding.getRoot();
 
     }
@@ -63,11 +62,8 @@ public class LoginFragment extends BaseFragment {
             } else if (result == Codes.SHOW_MESSAGE_ERROR) {
                 showMessage(authViewModels.getReturnedMessage(), 0, 1);
             } else if (result == Codes.CHECK_ERRORS) {
-                if (TextUtils.isEmpty(loginBinding.userName.getText())) {
-                    loginBinding.inputUserName.setError(getActivity().getResources().getString(R.string.invalidEmail));
-                } else if (TextUtils.isEmpty(loginBinding.password.getText())) {
-                    loginBinding.inputPassword.setError(getActivity().getResources().getString(R.string.invalidPassword));
-                } else if (loginBinding.inputUserName.getError() == null && loginBinding.inputPassword.getError() == null) {
+                if (Validate.isInputValid(loginBinding.inputUserName, loginBinding.userName, 0, getActivity())
+                        && Validate.isInputValid(loginBinding.inputPassword, loginBinding.password, 1, getActivity())) {
                     authViewModels.loginAction();
                 }
             } else if (result == View.VISIBLE || result == View.GONE) {

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.grand.ophthalmicadmin.admin.doctors.models.DepartmentModel;
 import app.grand.ophthalmicadmin.auth.model.UserData;
+import app.grand.ophthalmicadmin.doctor.models.XRays;
 import app.grand.ophthalmicadmin.doctor.reservation.models.ReservationsResponse;
 
 
@@ -12,9 +14,15 @@ public class PassingObject implements Serializable {
     private UserData objectClass;
     private String object;
     private ReservationsResponse reservationsResponse;
+    private DepartmentModel departmentModel;
     private int code;
+    private XRays raysModel;
 
     public PassingObject() {
+    }
+
+    public PassingObject(DepartmentModel departmentModel) {
+        this.departmentModel = departmentModel;
     }
 
     public PassingObject(int code) {
@@ -39,8 +47,20 @@ public class PassingObject implements Serializable {
         this.object = object;
     }
 
+    public PassingObject(XRays raysModel) {
+        this.raysModel = raysModel;
+    }
+
     public PassingObject(UserData objectClass) {
         this.objectClass = objectClass;
+    }
+
+    public DepartmentModel getDepartmentModel() {
+        return departmentModel;
+    }
+
+    public void setDepartmentModel(DepartmentModel departmentModel) {
+        this.departmentModel = departmentModel;
     }
 
     public int getCode() {
@@ -73,5 +93,13 @@ public class PassingObject implements Serializable {
 
     public void setReservationsResponse(ReservationsResponse reservationsResponse) {
         this.reservationsResponse = reservationsResponse;
+    }
+
+    public XRays getRaysModel() {
+        return raysModel;
+    }
+
+    public void setRaysModel(XRays raysModel) {
+        this.raysModel = raysModel;
     }
 }

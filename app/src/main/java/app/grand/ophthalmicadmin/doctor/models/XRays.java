@@ -2,7 +2,9 @@ package app.grand.ophthalmicadmin.doctor.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class XRays {
+import app.grand.ophthalmicadmin.auth.model.UserData;
+
+public class XRays extends UserData {
     @SerializedName("patient_id")
     private String patient_id;
     @SerializedName("x_ray_image")

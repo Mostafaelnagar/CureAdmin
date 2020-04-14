@@ -60,6 +60,8 @@ public class SplashFragment extends BaseFragment {
                                 MovementManager.startBaseActivity(getActivity(), Codes.DOCTOR_HOME);
                             else if (UserPreferenceHelper.getInstance(getActivity()).getUserData().getType().equals("3"))
                                 MovementManager.startBaseActivity(getActivity(), Codes.ADMIN_HOME);
+                            else if (UserPreferenceHelper.getInstance(getActivity()).getUserData().getType().equals("2"))
+                                MovementManager.startBaseActivity(getActivity(), Codes.Specialist_HOME);
                         } else
                             MovementManager.startBaseActivity(getActivity(), Codes.LOGIN_SCREEN);
                     }

@@ -24,8 +24,11 @@ public class AdminViewModels extends BaseViewModel {
     public void toNotifications() {
         getClicksMutableLiveData().setValue(Codes.ADMIN_NOTIFICATIONS);
     }
+ public void logout() {
+        getClicksMutableLiveData().setValue(Codes.LOG_OUT);
+    }
 
     public void toProfile() {
-        getClicksMutableLiveData().setValue(Codes.Specialist_PROFILE);
+        getClicksMutableLiveData().setValue(Codes.ADMIN_PROFILE);
     }
 }
