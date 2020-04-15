@@ -1,4 +1,4 @@
-package app.grand.ophthalmicadmin.admin.adminReservations.adapters;
+package app.grand.ophthalmicadmin.notifications.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,39 +8,32 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import app.grand.ophthalmicadmin.PassingObject;
 import app.grand.ophthalmicadmin.R;
-import app.grand.ophthalmicadmin.admin.adminReservations.itemViewModels.AdminReservationsItemViewModel;
+import app.grand.ophthalmicadmin.base.MovementManager;
 import app.grand.ophthalmicadmin.base.constantsutils.Codes;
-import app.grand.ophthalmicadmin.databinding.AdminReserveItemBinding;
-import app.grand.ophthalmicadmin.doctor.reservation.models.ReservationsResponse;
+import app.grand.ophthalmicadmin.databinding.NotifyItemBinding;
+import app.grand.ophthalmicadmin.notifications.itemViewModels.NotificationsItemViewModels;
+import app.grand.ophthalmicadmin.notifications.models.NotificationsData;
 
 
-public class AdminReservationsAdapter extends RecyclerView.Adapter<AdminReservationsAdapter.ViewHolder> {
-    public List<ReservationsResponse> reservationsResponseList;
+public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.ViewHolder> {
+    public List<NotificationsData> notificationsDataList;
     Context context;
-    private MutableLiveData<PassingObject> adminActions;
-    public int lastIndex;
 
-    public AdminReservationsAdapter() {
-        reservationsResponseList = new ArrayList<>();
-        adminActions = new MutableLiveData<>();
+    public NotificationsAdapter() {
+        notificationsDataList = new ArrayList<>();
     }
 
-    public MutableLiveData<PassingObject> getAdminActions() {
-        return adminActions;
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_reserve_item,
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.notify_item,
                 parent, false);
         context = parent.getContext();
         return new ViewHolder(itemView);
@@ -48,24 +41,23 @@ public class AdminReservationsAdapter extends RecyclerView.Adapter<AdminReservat
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ReservationsResponse dataModel = reservationsResponseList.get(position);
-        AdminReservationsItemViewModel homeItemViewModels = new AdminReservationsItemViewModel(dataModel);
+        NotificationsData dataModel = notificationsDataList.get(position);
+        NotificationsItemViewModels homeItemViewModels = new NotificationsItemViewModels(dataModel);
         homeItemViewModels.getClicksMutableLiveData().observe(((LifecycleOwner) context), new Observer<Integer>() {
             @Override
-            public void onChanged(Integer integer) {
-                adminActions.setValue(new PassingObject(dataModel.getDoc_id(), integer));
-                lastIndex = position;
+            public void onChanged(Integer notificationsData) {
+                MovementManager.startActivity(context, notificationsData);
             }
         });
         holder.setViewModel(homeItemViewModels);
     }
 
-
     @Override
     public int getItemCount() {
-        return this.reservationsResponseList.size();
+        return this.notificationsDataList.size();
     }
 
+    //
     @Override
     public void onViewAttachedToWindow(ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
@@ -78,15 +70,17 @@ public class AdminReservationsAdapter extends RecyclerView.Adapter<AdminReservat
         holder.unbind();
     }
 
-    public void updateData(@Nullable List<ReservationsResponse> data) {
-        this.reservationsResponseList.clear();
-        this.reservationsResponseList.addAll(data);
+    public void updateData(@Nullable List<NotificationsData> data) {
+        this.notificationsDataList.clear();
+
+        this.notificationsDataList.addAll(data);
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        AdminReserveItemBinding itemBinding;
+        NotifyItemBinding itemBinding;
 
+        //
         ViewHolder(View itemView) {
             super(itemView);
             bind();
@@ -105,9 +99,9 @@ public class AdminReservationsAdapter extends RecyclerView.Adapter<AdminReservat
             }
         }
 
-        void setViewModel(AdminReservationsItemViewModel itemViewModels) {
+        void setViewModel(NotificationsItemViewModels itemViewModels) {
             if (itemBinding != null) {
-                itemBinding.setReserveItemViewModels(itemViewModels);
+                itemBinding.setNotifyItemViewModels(itemViewModels);
             }
         }
     }

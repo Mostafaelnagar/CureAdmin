@@ -17,6 +17,7 @@ import com.android.volley.Request;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -33,7 +34,7 @@ import java.util.Map;
 import app.grand.ophthalmicadmin.PassingObject;
 import app.grand.ophthalmicadmin.admin.adminReservations.adapters.AdminReservationsAdapter;
 import app.grand.ophthalmicadmin.base.BaseViewModel;
- import app.grand.ophthalmicadmin.base.constantsutils.Codes;
+import app.grand.ophthalmicadmin.base.constantsutils.Codes;
 import app.grand.ophthalmicadmin.doctor.reservation.models.ReservationsResponse;
 
 
@@ -126,6 +127,7 @@ public class AdminReservationsViewModels extends BaseViewModel {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         accessLoadingBar(View.GONE);
+                        saveNotifications(docId, "user", rejectReason);
                         setReturnedMessage("Rejected Successfully");
                         getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_SUCCESS);
                     }
@@ -142,9 +144,38 @@ public class AdminReservationsViewModels extends BaseViewModel {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         accessLoadingBar(View.GONE);
+                        saveNotifications(docId, "doctor", null);
                         setReturnedMessage("Accepted Successfully");
                         getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_SUCCESS);
                     }
                 });
+    }
+
+    private void saveNotifications(String id, String type, @Nullable String reason) {
+        Map<String, Object> reserve = new HashMap<>();
+        reserve.put("title", "New reservation");
+        if (type.equals("doctor")) {
+            reserve.put("body", "new reservation from " + getReservationsAdapter().reservationsResponseList.get(getReservationsAdapter().lastIndex).getPatient().getUser_name());
+            reserve.put("user_id", getReservationsAdapter().reservationsResponseList.get(getReservationsAdapter().lastIndex).getDoctor().getId());
+            reserve.put("to", "doctor");
+        } else {
+            reserve.put("body", "We are sorry your reservation has been rejected due to " + reason);
+            reserve.put("user_id", getReservationsAdapter().reservationsResponseList.get(getReservationsAdapter().lastIndex).getPatient().getId());
+            reserve.put("to", "user");
+        }
+        reserve.put("reserve_id", id);
+        DocumentReference documentReference = firebaseFirestore.collection("Notifications").document();
+        documentReference.set(reserve).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                } else {
+                    accessLoadingBar(View.GONE);
+                    setReturnedMessage(task.getException().getMessage());
+                    getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_ERROR);
+                }
+            }
+        });
     }
 }

@@ -59,8 +59,8 @@ public class Codes {
     public static int UPDATE_ADMIN_DATA = 236;
     public static int ADMIN_PROFILE = 237;
     public static int Specialist_UPDTAE_IMAGE = 238;
-    public static int DIALOG_SHOW = 239;
-    public static int CHECK_OUT = 240;
+    public static int UPDATE_SPECIALIST_AUTH = 239;
+    public static int UPDATE_SPECIALIST_DATA = 240;
     public static int USER_FOLLOWS = 241;
     public static int MY_ORDERS = 242;
     public static int SELECT_PROFILE_IMAGE = 243;

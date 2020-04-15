@@ -73,6 +73,8 @@ public class HomeDoctorFragment extends BaseFragment {
                 MovementManager.startActivity(getActivity(), result);
             } else if (result == Codes.LOG_OUT) {
                 logOut();
+            }else if (result == Codes.ADMIN_NOTIFICATIONS) {
+                MovementManager.startActivity(getActivity(), result);
             }
         });
 

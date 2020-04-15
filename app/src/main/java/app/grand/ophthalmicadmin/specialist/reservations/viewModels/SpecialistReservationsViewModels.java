@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -152,8 +153,7 @@ public class SpecialistReservationsViewModels extends BaseViewModel {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
-                                Log.e("then", "then: " + task.getResult().toString());
-                                updateRayImage(task.getResult().toString());
+                                 updateRayImage(task.getResult().toString());
                             } else {
                                 setReturnedMessage(task.getException().getMessage());
                                 getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_ERROR);
@@ -177,6 +177,7 @@ public class SpecialistReservationsViewModels extends BaseViewModel {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         accessLoadingBar(View.GONE);
+                        saveNotifications(getPassingObject().getRaysModel().getDocId());
                         setReturnedMessage("Image Updated Successfully");
                         getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_SUCCESS);
                     } else {
@@ -189,4 +190,27 @@ public class SpecialistReservationsViewModels extends BaseViewModel {
             });
         }
     }
+
+    private void saveNotifications(String id) {
+        Map<String, Object> reserve = new HashMap<>();
+        reserve.put("title", "X Ray Updated");
+        reserve.put("body", "Check your X ray results");
+        reserve.put("user_id", getPassingObject().getRaysModel().getPatient_id());
+        reserve.put("to", "user");
+        reserve.put("reserve_id", id);
+        DocumentReference documentReference = firebaseFirestore.collection("Notifications").document();
+        documentReference.set(reserve).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                } else {
+                    accessLoadingBar(View.GONE);
+                    setReturnedMessage(task.getException().getMessage());
+                    getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_ERROR);
+                }
+            }
+        });
+    }
+
 }

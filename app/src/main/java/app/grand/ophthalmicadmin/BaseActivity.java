@@ -45,7 +45,10 @@ import app.grand.ophthalmicadmin.doctor.profile.DoctorUpdateAuthFragment;
 import app.grand.ophthalmicadmin.doctor.reservation.PatientProfileFragment;
 import app.grand.ophthalmicadmin.doctor.reservation.ReservationsDetailsFragment;
 import app.grand.ophthalmicadmin.doctor.reservation.ReservationsFragment;
+import app.grand.ophthalmicadmin.notifications.NotificationsFragment;
 import app.grand.ophthalmicadmin.specialist.HomeSpecialistFragment;
+import app.grand.ophthalmicadmin.specialist.profile.SpecialistProfileFragment;
+import app.grand.ophthalmicadmin.specialist.profile.SpecialistUpdateAuthFragment;
 import app.grand.ophthalmicadmin.specialist.reservations.SpecialistReservationsFragment;
 import app.grand.ophthalmicadmin.specialist.reservations.SpecialistUpdateReservationFragment;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -58,16 +61,7 @@ public class BaseActivity extends ParentActivity {
     public String lang;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/font1.otf")
-                .setFontAttrId(R.attr.fontPath)
-                .build());
         super.onCreate(savedInstanceState);
         activityBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
@@ -131,6 +125,10 @@ public class BaseActivity extends ParentActivity {
             MovementManager.addFragment(this, new AdminAddSpecialistFragment(), "");
         } else if (page == Codes.Specialist_RESERVATIONS) {
             MovementManager.addFragment(this, new SpecialistReservationsFragment(), "");
+        } else if (page == Codes.Specialist_PROFILE) {
+            MovementManager.addFragment(this, new SpecialistProfileFragment(), "");
+        } else if (page == Codes.ADMIN_NOTIFICATIONS) {
+            MovementManager.addFragment(this, new NotificationsFragment(), "");
         } else if (page == Codes.DOCTOR_RESERVATIONS_DETAILS) {
             ReservationsDetailsFragment fragment = new ReservationsDetailsFragment();
             Bundle bundle = new Bundle();
@@ -181,6 +179,12 @@ public class BaseActivity extends ParentActivity {
             MovementManager.addFragment(this, fragment, "");
         } else if (page == Codes.UPDATE_ADMIN_AUTH || page == Codes.UPDATE_ADMIN_DATA) {
             UpdateAuthFragment fragment = new UpdateAuthFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(Params.BUNDLE, getIntent().getStringExtra(Params.BUNDLE));
+            fragment.setArguments(bundle);
+            MovementManager.addFragment(this, fragment, "");
+        } else if (page == Codes.UPDATE_SPECIALIST_AUTH || page == Codes.UPDATE_SPECIALIST_DATA) {
+            SpecialistUpdateAuthFragment fragment = new SpecialistUpdateAuthFragment();
             Bundle bundle = new Bundle();
             bundle.putString(Params.BUNDLE, getIntent().getStringExtra(Params.BUNDLE));
             fragment.setArguments(bundle);

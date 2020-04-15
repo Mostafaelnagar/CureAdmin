@@ -9,11 +9,15 @@ public class SpecialistViewModels extends BaseViewModel {
         getClicksMutableLiveData().setValue(Codes.Specialist_RESERVATIONS);
     }
 
-    public void toPost() {
-        getClicksMutableLiveData().setValue(Codes.Specialist_NOTIFICATIONS);
-    }
-
     public void toProfile() {
         getClicksMutableLiveData().setValue(Codes.Specialist_PROFILE);
+    }
+
+    public void toLogout() {
+        getClicksMutableLiveData().setValue(Codes.LOG_OUT);
+    }
+
+    public void toNotifications() {
+        getClicksMutableLiveData().setValue(Codes.ADMIN_NOTIFICATIONS);
     }
 }

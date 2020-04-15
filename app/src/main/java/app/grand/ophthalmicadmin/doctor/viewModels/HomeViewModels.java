@@ -20,4 +20,8 @@ public class HomeViewModels extends BaseViewModel {
     public void toLogout() {
         getClicksMutableLiveData().setValue(Codes.LOG_OUT);
     }
+    public void toNotifications() {
+        getClicksMutableLiveData().setValue(Codes.ADMIN_NOTIFICATIONS);
+    }
+
 }

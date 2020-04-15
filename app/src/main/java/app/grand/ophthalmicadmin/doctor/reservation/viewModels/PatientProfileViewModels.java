@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -82,6 +83,7 @@ public class PatientProfileViewModels extends BaseViewModel {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    saveNotifications(getPassingObject().getObject(), "user");
                     if (getDiagnosisRequest().getRays() != null && !getDiagnosisRequest().getRays().equals("") && !getDiagnosisRequest().getRays().equals(" ")) {
                         addToRays();
                     } else {
@@ -106,13 +108,14 @@ public class PatientProfileViewModels extends BaseViewModel {
         rays.put("x_ray_image", "");
         rays.put("x_ray_name", getDiagnosisRequest().getRays());
 
-        firebaseFirestore.collection("X-Rays").document().set(rays).addOnCompleteListener(new OnCompleteListener<Void>() {
+        firebaseFirestore.collection("X-Rays").document(getPassingObject().getObject()).set(rays).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     accessLoadingBar(View.GONE);
                     setReturnedMessage("Diagnosis updated successfully");
                     getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_SUCCESS);
+                    saveNotifications(getPassingObject().getObject(), "special");
 
                 } else {
                     accessLoadingBar(View.GONE);
@@ -123,5 +126,32 @@ public class PatientProfileViewModels extends BaseViewModel {
         });
     }
 
+    private void saveNotifications(String id, String type) {
+        Map<String, Object> reserve = new HashMap<>();
+        reserve.put("title", "New reservation");
+        if (type.equals("special")) {
+            reserve.put("body", "new Ray");
+            reserve.put("user_id", passingObject.getObject());
+            reserve.put("to", "special");
+        } else {
+            reserve.put("body", "New Medicine available");
+            reserve.put("user_id", getPassingObject().getObjectClass().getId());
+            reserve.put("to", "user");
+        }
+        reserve.put("reserve_id", id);
+        DocumentReference documentReference = firebaseFirestore.collection("Notifications").document();
+        documentReference.set(reserve).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                } else {
+                    accessLoadingBar(View.GONE);
+                    setReturnedMessage(task.getException().getMessage());
+                    getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_ERROR);
+                }
+            }
+        });
+    }
 
 }

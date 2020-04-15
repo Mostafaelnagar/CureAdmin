@@ -51,14 +51,4 @@ public class AdminOnGoingReservationsFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-//                    if (homeViewModels.getCategoriesAdapter().categoriesItems.size() == 0) {
-//                        if (noInternetDialog != null)
-//                            noInternetDialog.destroy();
-//                        homeViewModels.getHomeData(1);
-    }
-
 }

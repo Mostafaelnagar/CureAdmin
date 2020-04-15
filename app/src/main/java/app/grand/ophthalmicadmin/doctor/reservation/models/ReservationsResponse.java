@@ -24,7 +24,7 @@ public class ReservationsResponse {
     private String medicine;
     @SerializedName("date")
     private String date;
-    private int count;
+    private String count;
     @SerializedName("user_id")
     private String user_id;
 
@@ -35,11 +35,12 @@ public class ReservationsResponse {
     public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
-    public int getCount() {
+
+    public String getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(String count) {
         this.count = count;
     }
 

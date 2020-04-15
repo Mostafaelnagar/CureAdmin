@@ -64,6 +64,7 @@ public class AdminDoctorReservationsFragment extends BaseFragment {
                 accessLoadingBar(result);
             } else if (result == Codes.SHOW_MESSAGE_SUCCESS) {
                 showMessage(adminReservationsViewModels.getReturnedMessage(), 0, 0);
+                adminReservationsViewModels.goBack(getActivity());
             }
         });
         adminReservationsViewModels.getReservationsAdapter().getAdminActions().observe(getActivity(), new Observer<PassingObject>() {
