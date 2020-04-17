@@ -107,6 +107,8 @@ public class PatientProfileViewModels extends BaseViewModel {
         rays.put("patient_id", getPassingObject().getObjectClass().getId());
         rays.put("x_ray_image", "");
         rays.put("x_ray_name", getDiagnosisRequest().getRays());
+        rays.put("x_ray_desc", "");
+        rays.put("x_ray_result", "");
 
         firebaseFirestore.collection("X-Rays").document(getPassingObject().getObject()).set(rays).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

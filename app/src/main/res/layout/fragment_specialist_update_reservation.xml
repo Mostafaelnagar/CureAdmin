@@ -79,6 +79,53 @@
                 android:onClick="@{()->reserveViewModel.selectImage()}"
                 android:src="@color/overlayBackground" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputDesc"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp16h"
+                android:hint="@string/desc"
+                android:textColorHint="@color/black"
+                app:helperTextTextColor="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:inputType="text"
+                    android:text="@={reserveViewModel.resultDesc}"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/overlayBackground" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp16h"
+                android:hint="@string/result"
+                android:textColorHint="@color/black"
+                app:helperTextTextColor="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputUserName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp100h"
+                    android:gravity="top"
+                    android:inputType="text"
+                    android:text="@={reserveViewModel.result}"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/overlayBackground" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_signUp"

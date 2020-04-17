@@ -79,5 +79,6 @@
     <string name="labNumber">Lab number</string>
     <string name="specialistUpdateStatus">Reservation details</string>
     <string name="updateImageText">Please choose X-Ray image</string>
+    <string name="result">Result</string>
 
 </resources>

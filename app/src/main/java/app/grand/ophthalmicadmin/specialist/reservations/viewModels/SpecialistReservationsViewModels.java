@@ -49,6 +49,7 @@ public class SpecialistReservationsViewModels extends BaseViewModel {
     private SpecialistReservationsAdapter reservationsAdapter;
     private PassingObject passingObject;
     public Uri filePath;
+    public String resultDesc, result;
 
     public SpecialistReservationsViewModels() {
         passingObject = new PassingObject();
@@ -153,7 +154,7 @@ public class SpecialistReservationsViewModels extends BaseViewModel {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
-                                 updateRayImage(task.getResult().toString());
+                                updateRayImage(task.getResult().toString());
                             } else {
                                 setReturnedMessage(task.getException().getMessage());
                                 getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_ERROR);
@@ -170,7 +171,9 @@ public class SpecialistReservationsViewModels extends BaseViewModel {
             //create hashMap to store name and image of user
             Map<String, Object> user_Map = new HashMap<>();
             user_Map.put("x_ray_image", imgUrl);
-            user_Map.put("status", false);
+            user_Map.put("x_ray_desc", resultDesc);
+            user_Map.put("x_ray_result", result);
+            user_Map.put("status", true);
             //create collection (users table ) and insert user id and Map
             firebaseFirestore.collection("X-Rays").document(getPassingObject().getRaysModel().getDocId()).update(user_Map).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
